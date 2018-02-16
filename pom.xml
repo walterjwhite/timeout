@@ -1,0 +1,100 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+				 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                      http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<groupId>com.walterjwhite</groupId>
+		<artifactId>infrastructure</artifactId>
+		<version>0.0.15-SNAPSHOT</version>
+    </parent>
+
+	<groupId>com.walterjwhite.infrastructure</groupId>
+	<artifactId>timeout</artifactId>
+	<packaging>jar</packaging>
+	
+	<name>timeout</name>
+	<description>timeout</description>
+	<url>https://github.com/walterjwhite/timeout</url>
+	
+	<dependencies>
+		<dependency>
+			<groupId>com.walterjwhite.infrastructure.dependencies</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>0.0.15-SNAPSHOT</version>
+			<type>pom</type>
+		</dependency>
+
+		<dependency>
+			<groupId>com.walterjwhite.infrastructure.dependencies</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>0.0.15-SNAPSHOT</version>
+			<type>pom</type>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>aspectj-maven-plugin</artifactId>
+				<version>1.4</version>
+
+				<configuration>
+					<showWeaveInfo>true</showWeaveInfo>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+					<Xlint>ignore</Xlint>
+					<complianceLevel>${java.version}</complianceLevel>
+					<encoding>UTF-8</encoding>
+					<verbose>false</verbose>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+							<goal>test-compile</goal>
+						</goals>
+					</execution>
+				</executions>
+				<dependencies>
+					<!--
+                    <dependency>
+                        <groupId>com.walterjwhite.infrastructure.dependencies</groupId>
+                        <artifactId>aspectjrt</artifactId>
+                        <version>0.0.11</version>
+                        <type>pom</type>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.walterjwhite.infrastructure.dependencies</groupId>
+                        <artifactId>aspectjtools</artifactId>
+                        <version>0.0.11</version>
+                        <type>pom</type>
+                    </dependency>
+                    -->
+					<dependency>
+						<groupId>org.aspectj</groupId>
+						<artifactId>aspectjrt</artifactId>
+						<version>${aspectj.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.aspectj</groupId>
+						<artifactId>aspectjtools</artifactId>
+						<version>${aspectj.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+	</build>
+
+	<scm>
+		<connection>scm:git:ssh://git@localhost:/projects/active/github.com/java/infrastructure/timeout.git</connection>
+		<developerConnection>scm:git:ssh://git@localhost:/projects/active/github.com/java/infrastructure/timeout.git</developerConnection>
+		<url>https://github.com/walterjwhite/timeout.git</url>
+	</scm>
+
+	<properties>
+		<aspectj.version>1.8.11</aspectj.version>
+	</properties>
+</project>
