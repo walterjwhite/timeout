@@ -1,0 +1,6 @@
+group = 'com.walterjwhite.infrastructure'
+description = 'timeConstrained'
+dependencies {
+  compile project(':infrastructure:dependencies:slf4j-api')
+  compile project(':infrastructure:dependencies:aspectjrt')
+}
