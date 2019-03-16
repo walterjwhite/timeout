@@ -1,5 +1,6 @@
 package com.walterjwhite.timeout;
 
+import java.time.Duration;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -14,6 +15,14 @@ public class TimeConstrainedMethodEnforcer {
       "execution(* *(..)) && @annotation(com.walterjwhite.timeout.annotation.TimeConstrained) && !within(com.walterjwhite.timeout.*)")
   public Object doTimeConstrainedMethodCall(ProceedingJoinPoint proceedingJoinPoint)
       throws Throwable {
-    return new TimeConstrainedMethodCall(proceedingJoinPoint).call();
+    final Duration allowedDuration = getAllowedDuration(proceedingJoinPoint);
+    if (allowedDuration.isZero()) return proceedingJoinPoint.proceed();
+
+    return new TimeConstrainedMethodCall(proceedingJoinPoint, allowedDuration).call();
+  }
+
+  private static Duration getAllowedDuration(ProceedingJoinPoint proceedingJoinPoint) {
+    return ((TimeConstrainedMethodInvocation) proceedingJoinPoint.getThis())
+        .getAllowedExecutionDuration();
   }
 }
