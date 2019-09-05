@@ -36,3 +36,7 @@ dependency-reduced-pom.xml
 out
 **/logs
 *.db
+
+.log-perform
+pom.xml.releaseBackup
+release.properties
